@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WaterFrontSoftware.DateTime.Override</id>
+    <version>1.0.0.0</version>
+    <title>DateTime Override</title>
+    <authors>WaterFrontSoftware</authors>
+    <owners>WaterFrontSoftware</owners>
+    
+    <projectUrl>https://github.com/StuartSmith/WaterFrontSoftware.DateTime</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The reason for this functionality is to easily be able to switch the date/time a piece of code is using while tests are running but use the system datetime when the same code is running in production  </description>
+    <releaseNotes>Initial writing of package</releaseNotes>
+    <copyright>Copyright 2019</copyright>  
+  </metadata>
+</package>
