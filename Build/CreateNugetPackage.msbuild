@@ -1,8 +1,86 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Target Name="Build" >
-    <MSBuild Targets="Build" Projects="..\WaterFrontSoftware.DateTime\WaterFrontSoftware.DateTimeOverRide.sln" />
+	<PropertyGroup>
+        <NugetStagingFolder>$(MSBuildProjectDirectory)\NugetStagingFolder\</NugetStagingFolder>
+    </PropertyGroup>
+	
+	<ItemGroup>
+        <MySourceFiles Include="$(MSBuildProjectDirectory)\..\WaterFrontSoftware.DateTime\bin\Release\*.nupkg"/>
+    </ItemGroup>
+	
+  <!-- <Target Name="Build" DependsOnTargets = "DownloadOpenCover" >
+		<MSBuild Targets="Build" Projects="..\WaterFrontSoftware.DateTimeOverRide.sln" />
+		
+		<Message Text="Project File Name = $(MSBuildProjectDirectory)\..\WaterFrontSoftware.DateTime\bin\Release\" />
+		<Copy  SourceFiles="@(MySourceFiles)" DestinationFolder="$(MSBuildProjectDirectory)\NugetStagingFolder"/>
+	
+  </Target> -->
+  
+  <Target Name="Build" DependsOnTargets = "DownloadNunit;
+										   UnZipNUnit;
+										   DownloadOpenCover;
+										   UnZipOpenCover" >
+   </Target>
+   
+   <Target Name="Compile" >   
+			<MSBuild Targets="Build" Projects="..\WaterFrontSoftware.DateTimeOverRide.sln" />
+   </Target>
+   
+  <!-- ________________ -->
+  <!--Download NUnit From git hub and extract -->
+  <!-- ________________ -->
+  <PropertyGroup>
+		<NunitsRemoteLocation>
+				https://github.com/nunit/nunit/releases/download/v3.11/NUnit.Framework-3.11.0.zip
+		</NunitsRemoteLocation>	
+		 <NunitFileName>NUnit.Framework-3.11.0.zip</NunitFileName>	
+		<NUnitStagingFolder>$(MSBuildProjectDirectory)\NUnitStagingFolder\</NUnitStagingFolder>
+		<NUnitFolder>$(MSBuildProjectDirectory)\NUnitStagingFolder\NUnit</NUnitFolder>
+  </PropertyGroup>
+  
+  <Target Name="DownloadNunit" >
+		<RemoveDir Directories="$(NUnitStagingFolder);" />
+		<MakeDir Directories="$(NUnitStagingFolder)"/>
+		<DownloadFile SourceUrl="$(NunitsRemoteLocation)" DestinationFolder="$(NUnitStagingFolder)"/>
+		<Message Text="Finished Downloading $(NunitsRemoteLocation) to $(NUnitStagingFolder)"  />
   </Target>
-
+  
+   <Target Name="UnZipNUnit">   
+		<RemoveDir Directories="$(NUnitFolder);" />
+		<MakeDir Directories="$(NUnitFolder)"/>	
+        <Unzip
+            SourceFiles="$(NUnitStagingFolder)\$(NunitFileName)"
+            DestinationFolder="$(NUnitFolder)"
+            OverwriteReadOnlyFiles="true"
+        />
+    </Target>
+  
+  
+   <!-- ________________ -->
+  <!--Download OpenCover From git hub and extract -->
+  <!-- ________________ -->
+    <PropertyGroup>
+		<OpenCoverRemoteLocation>
+				https://github.com/OpenCover/opencover/releases/download/4.7.922/opencover.4.7.922.zip
+		</OpenCoverRemoteLocation>	
+		 <OpenCoverFileName>opencover.4.7.922.zip</OpenCoverFileName>	
+		<OpenCoverStagingFolder>$(MSBuildProjectDirectory)\OpencoverStagingFolder\</OpenCoverStagingFolder>
+		<OpenCoverFolder>$(MSBuildProjectDirectory)\OpenCoverStagingFolder\OpenCover</OpenCoverFolder>
+    </PropertyGroup>
+	  <Target Name="DownloadOpenCover" >
+			<RemoveDir Directories="$(OpenCoverStagingFolder);" />
+			<MakeDir Directories="$(OpenCoverStagingFolder)"/>
+			<DownloadFile SourceUrl="$(OpenCoverRemoteLocation)" DestinationFolder="$(OpenCoverStagingFolder)"/>
+			<Message Text="Finished Downloading $(NunitsRemoteLocation) to $(OpenCoverStagingFolder)"  />
+	  </Target>
+	<Target Name="UnZipOpenCover">   
+		<RemoveDir Directories="$(OpenCoverFolder);" />
+		<MakeDir Directories="$(OpenCoverFolder)"/>	
+        <Unzip
+            SourceFiles="$(OpenCoverStagingFolder)\$(OpenCoverFileName)"
+            DestinationFolder="$(OpenCoverFolder)"
+            OverwriteReadOnlyFiles="true"
+        />
+    </Target>
   
 </Project>

@@ -69,6 +69,12 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
+*.dll
+*.deps.json
+*.zip
+
+#Nuget folder
+
 
 # Chutzpah Test files
 _Chutzpah*
@@ -153,6 +159,7 @@ PublishScripts/
 
 # NuGet Packages
 *.nupkg
+/Nuget/*
 # The packages folder can be ignored because of Package Restore
 **/packages/*
 # except build/, which is used as an MSBuild target.
@@ -259,3 +266,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
