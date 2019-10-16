@@ -21,6 +21,6 @@ Output from this function is ...
             The UTC Date/Time with in the using statement is Christmase 1900  12/25/1900 10:30:00 AM 
             The UTC Date/Time after the using statement is 10/13/2019 10:48:12 PM 
 
-So if we wrap our test code in a using statement and use the date time Overwrite vs the standard date time, We are able to override the datetime to all code that is called via the using block. This way we can change the system date in our businesslogic by just wrapping it in a using statement.
+So if we wrap our test code in a using statement and use the date time overwrite vs the standard date time, We are able to override the datetime to all code that is called via the using block. This way we can change the system date in our businesslogic by just wrapping it in a using statement.
 
 
